@@ -28,11 +28,33 @@
          <p class="title is-3">Account Setup:</p>
        <div class = 'level section'>
 <div class = 'level-item'>
-<form>
+<form  method="POST">
     <p class="title is-3">Create a User's Account:</p>
   <div class="field">
   <p class="control has-icons-left has-icons-right">
-    <input class="input" type="name" placeholder="Name">
+    <input class="input" type="firstname" placeholder="First Name" name="Firstname">
+    <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fas fa-check"></i>
+    </span>
+  </p>
+</div>
+<div class="field">
+  <p class="control has-icons-left has-icons-right">
+    <input class="input" type="lastname" placeholder="Last Name" name="Lastname">
+    <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fas fa-check"></i>
+    </span>
+  </p>
+</div>
+<div class="field">
+  <p class="control has-icons-left has-icons-right">
+    <input class="input" type="DOB" placeholder="Date of Birth" name="DOB">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -43,7 +65,7 @@
 </div>
   <div class="field">
   <p class="control has-icons-left has-icons-right">
-    <input class="input" type="email" placeholder="Email">
+    <input class="input" type="email" placeholder="Email" name="Email">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -62,7 +84,7 @@
 </div>
 <div class="field">
   <p class="control has-icons-left">
-    <input class="input" type="password" placeholder="Confirm Password">
+    <input class="input" type="password" placeholder="Confirm Password" name="password">
     <span class="icon is-small is-left">
       <i class="fas fa-lock"></i>
     </span>
@@ -70,7 +92,7 @@
 </div>
 <div class="field">
   <p class="control">
-    <button class="button is-primary is-pulled-right">
+    <button class="button is-primary is-pulled-right" type="submit">
       Create User Account
     </button>
   </p>
@@ -117,16 +139,17 @@
 </template>
 
 <script>
-import { getList } from "@/models/users";
+import { getList } from "@/models/admins";
 import session from "@/models/session";
 export default {
     data(){
         return {
-            list: []
+            list: [],
         }
     },
     async created(){
         this.list = await getList(); 
+        this.newUser = await newUser();
     },
     components: {
         
