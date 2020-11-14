@@ -61,7 +61,7 @@
 <script>
 export default {
     
-}/*
+}
 var app = new Vue({
       el: '.container',
       data: {
@@ -82,7 +82,7 @@ var app = new Vue({
           })
         }
       }
-    })*/
+    })
 </script>
   
 <style>

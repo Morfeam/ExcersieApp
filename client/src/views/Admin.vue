@@ -88,72 +88,27 @@
     <div class ="">
     <p class = "title is-3">User Information</p>
       <table class='table'> 
-          <thead> 
-            <tr> 
-              <th>ID Number</th> 
-              <th>Name</th>
-              <th>Email</th>  
-              <th>Password</th> 
-              <th><center>Manage</center></th> 
-            </tr> 
-          </thead> 
-          <tbody> 
-            <tr> 
-              <td>1</td> 
-              <td>Matthew Morfea</td> 
-              <td>morfeam1@hawkmail.newpaltz.edu</td> 
-              <td>Password</td> 
-              <td>
-                  <div class="buttons">
-                  <button class="button is-primary is-light">View  User Page</button>
-                  <button class="button is-info is-light">Change Password</button>
-                  <button class="button is-danger is-light">Delete User</button>
-                  </div>
-              </td>
-            </tr> 
-
-            <tr> 
-              <td>2</td> 
-              <td>Chris Smith</td> 
-              <td>yahoo.com</td> 
-              <td>qwert1230193</td> 
-              <td>
-                  <div class="buttons">
-                  <button class="button is-primary is-light">View  User Page</button>
-                  <button class="button is-info is-light">Change Password</button>
-                  <button class="button is-danger is-light">Delete User</button>
-                  </div>
-              </td>
-            </tr> 
-
-            <tr> 
-              <td>3</td> 
-              <td>Other User</td> 
-              <td>google.com</td> 
-              <td>helloworld</td> 
-              <td>
-                  <div class="buttons">
-                  <button class="button is-primary is-light">View  User Page</button>
-                  <button class="button is-info is-light">Change Password</button>
-                  <button class="button is-danger is-light">Delete User</button>
-                  </div>
-              </td>
-            </tr> 
-
-            <tr> 
-              <td>4</td> 
-              <td>John Smith</td> 
-              <td>ABC123@gmail.com</td> 
-              <td>12345</td> 
-              <td>
-                  <div class="buttons">
-                  <button class="button is-primary is-light">View  User Page</button>
-                  <button class="button is-info is-light">Change Password</button>
-                  <button class="button is-danger is-light">Delete User</button>
-                  </div>
-              </td>
-            </tr> 
-          </tbody> 
+          <thead><tr>
+                <th>id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Password</th>
+                <th>DOB</th>
+                <th>Type</th>
+            </tr></thead>
+            <tbody>
+                <tr v-for=" (x, i) in list " 
+                      :key="i"
+                      :i="i"
+                      :post="x">
+                    <th>{{x.id}}</th>
+                    <td>{{x.FirstName}}</td>
+                    <td>{{x.LastName}}</td>
+                    <td>{{x.Password}}</td>
+                    <td>{{x.DOB}}</td>
+                    <td>{{x.Type}}</td>
+                </tr>
+            </tbody>
         </table>
         </div>
     <hr>
@@ -162,8 +117,23 @@
 </template>
 
 <script>
+import { getList } from "@/models/users";
+import session from "@/models/session";
 export default {
-
+    data(){
+        return {
+            list: []
+        }
+    },
+    async created(){
+        this.list = await getList(); 
+    },
+    components: {
+        
+    },
+    methods: {
+        
+    }
 }
 </script>
 
