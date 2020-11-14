@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config();
 
 const users = require('./controllers/users');
+const admins = require('./controllers/admins');
 
 const app = express()
 const port = process.env.PORT || 3000;

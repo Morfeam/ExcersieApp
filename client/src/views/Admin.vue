@@ -28,7 +28,7 @@
          <p class="title is-3">Account Setup:</p>
        <div class = 'level section'>
 <div class = 'level-item'>
-<form  method="POST">
+<form  action="../newUser">
     <p class="title is-3">Create a User's Account:</p>
   <div class="field">
   <p class="control has-icons-left has-icons-right">
@@ -139,17 +139,17 @@
 </template>
 
 <script>
-import { getList } from "@/models/admins";
+import { getList,newUser } from "@/models/admins";
 import session from "@/models/session";
 export default {
     data(){
         return {
-            list: [],
+            list: []
         }
     },
     async created(){
         this.list = await getList(); 
-        this.newUser = await newUser();
+        this.list = await newUser(FirstName,LastName,DOB,Email,password);
     },
     components: {
         
@@ -157,6 +157,7 @@ export default {
     methods: {
         
     }
+    
 }
 </script>
 
