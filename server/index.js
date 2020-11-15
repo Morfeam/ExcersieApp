@@ -3,7 +3,8 @@ const path = require('path');
 require('dotenv').config();
 
 const users = require('./controllers/users');
-const admins = require('./controllers/admins');
+const workouts = require('./controllers/workouts');
+const followers = require('./controllers/followers');
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -35,6 +36,8 @@ app.get('/hello', (req, res, next) => {
 })
 
 app.use('/users', users);
+app.use('/workouts', workouts);
+app.use('/followers', followers);
 
 app.get('*', (req, res, next) => {
     const filename = path.join(__dirname, '/../docs/index.html');

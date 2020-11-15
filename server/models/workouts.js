@@ -8,16 +8,16 @@ const PREFIX = process.env.MYSQL_TABLE_PREFIX || 'EX_Fall_2020_';
 const SALT_ROUNDS = process.env.SALT_ROUNDS || 8;
 const Privacy_Setting = { hidden:0, onlyme:1, onlyfriends:2,public:4};
 
-async function getAll(){
+async function getAllWorkouts(){
     //throw { status: 501, message: "This is a fake error" }
     //await Promise.resolve()
-    console.log("Called Get All")
+    console.log("Called Get All Workouts")
     return await mysql.query(`SELECT * FROM ${PREFIX}Workouts`);
 }
 
 async function getUserWorkouts(Owner_id){
     console.log("Get all user workouts:", Owner_id)
-    return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where ${PREFIX}Users.id = Owner_id`);
+    return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where Owner_id = ${PREFIX}Users`);
 }
 
 async function getWorkout(id){
@@ -39,6 +39,6 @@ async function removeWorkout(id){
     return await mysql.query(sql, [id]);
 }
 
-const search = async q => await mysql.query(`SELECT id, FirstName, LastName FROM ${PREFIX}Workouts WHERE Owner_id LIKE ? OR Exercise_Type LIKE ?; `, [`%${q}%`, `%${q}%`]);
+const search = async q => await mysql.query(`SELECT id, Owner_id, Exercise_Type FROM ${PREFIX}Workouts WHERE Owner_id LIKE ? OR Exercise_Type LIKE ?; `, [`%${q}%`, `%${q}%`]);
 
-module.exports = { getAll, getUserWorkouts, getWorkout, addWorkout, removeWorkout, search, Privacy_Setting }
+module.exports = { getAllWorkouts, getUserWorkouts, getWorkout, addWorkout, removeWorkout, search, Privacy_Setting }

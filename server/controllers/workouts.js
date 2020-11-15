@@ -9,7 +9,7 @@ const router = express.Router();
 
 router
     .get('/', (req, res, next) => {
-        workouts.getAll().then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
+        workouts.getAllWorkouts().then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
         .catch(next);
     })
     .get('/:Owner_id', (req, res, next) => {

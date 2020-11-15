@@ -46,4 +46,4 @@ async function removeFollow(id){
 
 const search = async q => await mysql.query(`SELECT id, Following_id, Follower_id FROM ${PREFIX}Followers WHERE Following_id LIKE ? OR Follower_id LIKE ?; `, [`%${q}%`, `%${q}%`]);
 
-module.exports = { getAllFollows, getFollowers,getFollowers, getFollowing,addFollow,updateFollow,removeFollow, search, Types }
+module.exports = { getAllFollows, getFollowers,getFollowers, getFollowing,addFollow,updateFollow,removeFollow, search}
