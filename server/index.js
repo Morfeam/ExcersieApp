@@ -5,6 +5,8 @@ require('dotenv').config();
 const users = require('./controllers/users');
 const workouts = require('./controllers/workouts');
 const followers = require('./controllers/followers');
+const comments = require('./controllers/comments');
+const exercise_types = require('./controllers/exercise_types');
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -38,6 +40,8 @@ app.get('/hello', (req, res, next) => {
 app.use('/users', users);
 app.use('/workouts', workouts);
 app.use('/followers', followers);
+app.use('/comments', comments);
+app.use('/exercise_types', exercise_types);
 
 app.get('*', (req, res, next) => {
     const filename = path.join(__dirname, '/../docs/index.html');
