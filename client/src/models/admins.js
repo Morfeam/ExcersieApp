@@ -9,6 +9,5 @@ export function getList() {
 }
 
 export function newUser(){
-    console.log(users);
-    return myFetch('http://localhost:3007/users/');
+    return myFetch('http://localhost:3007/users/register');
 }

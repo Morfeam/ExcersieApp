@@ -32,7 +32,7 @@
     <p class="title is-3">Create a User's Account:</p>
   <div class="field">
   <p class="control has-icons-left has-icons-right">
-    <input class="input" type="firstname" placeholder="First Name" name="Firstname">
+    <input class="input" type="firstname" placeholder="First Name" v-model="Fname">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -43,7 +43,7 @@
 </div>
 <div class="field">
   <p class="control has-icons-left has-icons-right">
-    <input class="input" type="lastname" placeholder="Last Name" name="Lastname">
+    <input class="input" type="lastname" placeholder="Last Name" v-model="Lname">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -54,7 +54,7 @@
 </div>
 <div class="field">
   <p class="control has-icons-left has-icons-right">
-    <input class="input" type="DOB" placeholder="Date of Birth" name="DOB">
+    <input class="input" type="DOB" placeholder="Date of Birth" v-model="Dateofbirth">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -65,7 +65,7 @@
 </div>
   <div class="field">
   <p class="control has-icons-left has-icons-right">
-    <input class="input" type="email" placeholder="Email" name="Email">
+    <input class="input" type="email" placeholder="Email" v-model="mail">
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -84,7 +84,7 @@
 </div>
 <div class="field">
   <p class="control has-icons-left">
-    <input class="input" type="password" placeholder="Confirm Password" name="password">
+    <input class="input" type="password" placeholder="Confirm Password" v-model="pword">
     <span class="icon is-small is-left">
       <i class="fas fa-lock"></i>
     </span>
@@ -92,7 +92,7 @@
 </div>
 <div class="field">
   <p class="control">
-    <button class="button is-primary is-pulled-right" type="submit">
+    <button class="button is-primary is-pulled-right" type="submit" @click="register()">
       Create User Account
     </button>
   </p>
@@ -144,18 +144,30 @@ import session from "@/models/session";
 export default {
     data(){
         return {
-            list: []
+            list: [],
+            Fname: '',
+            Lname: '',
+            mail: '',
+            Dateofbirth: '',
+            pword: ''
         }
     },
     async created(){
         this.list = await getList(); 
-        this.list = await newUser(FirstName,LastName,DOB,Email,password);
+        this.list = await newUser(Fname,Lname,Dateofbirth,mail,pword);
     },
     components: {
         
     },
     methods: {
-        
+        register(){
+           console.log(Fname,Lname,mail,DateofBirth,pword)
+        }
+    },
+    watch: {
+      mail (value){
+        console.log('email has changed', value)
+      }
     }
     
 }
