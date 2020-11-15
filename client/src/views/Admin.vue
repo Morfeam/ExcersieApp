@@ -139,7 +139,7 @@
 </template>
 
 <script>
-import { getList,newUser } from "@/models/admins";
+import { getList,newUser } from "@/models/users";
 import session from "@/models/session";
 export default {
     data(){
