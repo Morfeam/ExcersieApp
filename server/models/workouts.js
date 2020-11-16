@@ -17,7 +17,7 @@ async function getAllWorkouts(){
 
 async function getUserWorkouts(Owner_id){
     console.log("Get all user workouts:", Owner_id)
-    return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where Owner_id = ${PREFIX}Users`);
+    return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where Owner_id = ?`,[Owner_id]);
 }
 
 async function getWorkout(id){

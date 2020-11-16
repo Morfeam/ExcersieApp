@@ -12,8 +12,9 @@ router
         workouts.getAllWorkouts().then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
         .catch(next);
     })
-    .get('/:Owner_id', (req, res, next) => {
-        workouts.getUserWorkouts().then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
+    .get('/owner/:Owner_id', (req, res, next) => {
+        const Owner_id = +req.params.Owner_id;
+        workouts.getUserWorkouts(Owner_id).then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
         .catch(next);
     })
     .get('/:id', (req, res, next) => {
