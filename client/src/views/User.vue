@@ -206,20 +206,22 @@
                               <th>Time</th>
                               <th>Exercise Type</th>
                               <th>Notes</th>
+                              <th>Distance</th>
                               <th>Other Info</th>
                            </tr></thead>
                            <tbody>
-                              <tr v-for=" (x, i) in 5 " 
+                              <tr v-for=" (x, i) in list " 
                                     :key="i"
                                     :i="i"
                                     :post="x">
-                                 <th></th>
-                                 <th></th>
-                                 <td></td>
-                                 <td></td>
-                                 <th></th>
-                                 <td></td>
-                                 <td></td>
+                                 <td>{{x.id}}</td>
+                                 <td>{{x.created_at}}</td>
+                                 <td>{{x.Privacy_Setting}}</td>
+                                 <td>{{x.Time}} min.</td>
+                                 <td>{{x.Exercise_Type}}</td>
+                                 <td>{{x.Note}}</td>
+                                 <td>{{x.Distance}} miles</td>
+                                 <td>{{x.Other_Info}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -347,8 +349,25 @@
 </template>
 
 <script>
+import { getUserWorkouts} from "@/models/workouts";
+import session from "@/models/session";
 export default {
+    data(){
+        return {
+            list: []
+        }
+    },
+    async created(){
+        this.list = await getUserWorkouts(1); 
+    },
+    components: {
+        
+    },
+    methods: {
 
+    }
+    
+    
 }
 </script>
 
