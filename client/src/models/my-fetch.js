@@ -1,6 +1,8 @@
 
 
 
+const API_ROOT = process.env.API_ROOT || "http://localhost:3007/";
+
 export function myFetch(url){
-    return fetch(url).then(x=> x.json() )
+    return fetch(API_ROOT + url).then(x=> x.json() )
 }   

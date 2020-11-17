@@ -12,16 +12,14 @@ router
         follow.getAllFollows().then(x=> res.send( x.map(follows=> ({ ...follows}) ) ) )
         .catch(next);
     })
-    .get('/:Follower_id', (req, res, next) => {
-        const id = +req.params.Follower_id;
-        if(!id) return next();
-        follow.getFollowers(id).then(x=> res.send( x ) )
+    .get('/follower/:Follower_id', (req, res, next) => {
+        const follower_id = +req.params.Follower_id;
+        follow.getFollowers(follower_id).then(x=> res.send( x.map(follower=> ({ ...follower}) ) ) )
         .catch(next);
     })
-    .get('/:Following_id', (req, res, next) => {
-        const id = +req.params.Following_id;
-        if(!id) return next();
-        follow.getFollowing(id).then(x=> res.send( x ) )
+    .get('/following/:Following_id', (req, res, next) => {
+        const following_id = +req.params.Following_id;
+        follow.getFollowing(following_id).then(x=> res.send( x.map(following=> ({ ...following}) ) ) )
         .catch(next);
     })
     .get('/search', (req, res, next) => {

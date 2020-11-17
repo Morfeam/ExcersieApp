@@ -14,17 +14,13 @@ async function getAllFollows(){
 }
 
 async function getFollowers(Follower_id){
-    const sql = `SELECT *, (SELECT Value FROM ${PREFIX}Followers Where Follower_id = ${PREFIX}Users.id`;
-    const rows = await mysql.query(sql, [Follower_id]);
-    if(!rows.length) throw { status: 404, message: "Sorry, there is no such FollowerId" };
-    return rows[0];
+    console.log("Get all user followers:",Follower_id)
+    return await mysql.query(`SELECT * FROM ${PREFIX}Followers Where Follower_id = ?`,[Follower_id]);
 }
 
 async function getFollowing(Following_id){
-    const sql = `SELECT *, (SELECT Value FROM ${PREFIX}Followers Where Following_id = ${PREFIX}Users.id`;
-    const rows = await mysql.query(sql, [Following_id]);
-    if(!rows.length) throw { status: 404, message: "Sorry, there is no such Following id" };
-    return rows[0];
+    console.log("Get all users Followig list:",Following_id)
+    return await mysql.query(`SELECT * FROM ${PREFIX}Followers Where Following_id = ?`,[Following_id]);
 }
 
 async function addFollow(Following_id,Follower_id,IsAccepted){

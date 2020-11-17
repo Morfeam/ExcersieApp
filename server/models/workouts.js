@@ -21,11 +21,8 @@ async function getUserWorkouts(Owner_id){
 }
 
 async function getWorkout(id){
-    const sql = `SELECT *,
-        (SELECT Value FROM ${PREFIX}Workouts Where Owner_id = ${PREFIX}Users.id`;
-    const rows = await mysql.query(sql, [id]);
-    if(!rows.length) throw { status: 404, message: "Sorry, there is no such workout" };
-    return rows[0];
+    console.log("Get workout at: ", id)
+    return await mysql.query(`SELECT VALUE FROM ${PREFIX}Workouts Where id= ?`,[id]);
 }
 
 async function addWorkout( Owner_id, Privacy_Setting, Time, Exercise_Type, Note, Distance, Other_Info){
