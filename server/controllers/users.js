@@ -26,13 +26,14 @@ router
         users.search(req.query.q).then(x=> res.send( x ) )
         .catch(next);
     })
-    .post('/', (req, res, next) => {
+    .post('/add', (req, res, next) => {
         users.add(
             req.body.FirstName,
             req.body.LastName, 
             req.body.DOB, 
             req.body.Password, 
             users.Types.USER, 
+            req.body.Email, 
         ).then(newUser => {
             res.send( newUser );
         }).catch(next)
@@ -64,6 +65,7 @@ router
             req.body.DOB, 
             req.body.Password, 
             users.Types.USER, 
+            req.body.Email, 
         ).then(newUser => {
             res.send( newUser );
         }).catch(next)

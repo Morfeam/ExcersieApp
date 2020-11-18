@@ -11,3 +11,7 @@ export function getWorkouts() {
 export function getUserWorkouts(Owner_id) {
     return myFetch('workouts/owner/' + Owner_id);
 }
+
+export function addWorkout( Owner_id, Privacy_Setting, Time, Exercise_Type, Note, Distance, Other_Info) {
+    return myFetch('workouts/add' +  Owner_id, Privacy_Setting, Time, Exercise_Type, Note, Distance, Other_Info);
+}

@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const mysql = require('./mysql');
-const cm = require('./ContactMethods');
+const users = require('./Users');
 
 const PREFIX = process.env.MYSQL_TABLE_PREFIX || 'EX_Fall_2020_';
 const SALT_ROUNDS = process.env.SALT_ROUNDS || 8;
@@ -43,15 +43,15 @@ async function getTypes(){
     return await mysql.query(`SELECT id, Name FROM ${PREFIX}Types WHERE Type_id = 2`);
 }
 
-async function add(FirstName, LastName, DOB, Password, User_Type){
-    const sql = `INSERT INTO ${PREFIX}Users (created_at, FirstName, LastName, DOB, Password, User_Type) VALUES ? ;`;
-    const params = [[new Date(), FirstName, LastName, new Date(DOB), Password, User_Type]];
+async function add(FirstName, LastName, DOB, Password, User_Type, Email){
+    const sql = `INSERT INTO ${PREFIX}Users (created_at, FirstName, LastName, DOB, Password, User_Type, Email) VALUES ? ;`;
+    const params = [[new Date(),FirstName, LastName, DOB, Password, User_Type, Email]];
     return await mysql.query(sql, [params]);
 }
 
-async function update(id, FirstName, LastName, DOB, Password, User_Type){
+async function update(id, FirstName, LastName, DOB, Password, User_Type, Email){
     const sql = `UPDATE ${PREFIX}Users SET ? WHERE id = ?;`;
-    const params = { FirstName, LastName, DOB: new Date(DOB), Password, User_Type };
+    const params = { FirstName, LastName, DOB: new Date(DOB), Password, User_Type, Email };
     return await mysql.query(sql, [params, id]);
 }
 
@@ -60,12 +60,12 @@ async function remove(id){
     return await mysql.query(sql, [id]);
 }
 
-async function register(FirstName, LastName, DOB, Password, User_Type, email) {
-    if(await cm.exists(email)){
+async function register(FirstName, LastName, DOB, Password, User_Type, Email) {
+    if(await users.exists(Email)){
         throw { status: 409, message: 'You already signed up with this email. Please go to Log in.' }
     }
     const hash = await bcrypt.hash(Password, SALT_ROUNDS);
-    const res = await add(FirstName, LastName, DOB, hash, User_Type);
+    const res = await add(FirstName, LastName, DOB, hash, User_Type, Email);
     const emailRes = await cm.add(cm.Types.EMAIL, email, true, true, res.insertId);
     const user = await get(res.insertId);
     return user;

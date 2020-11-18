@@ -27,7 +27,7 @@ router
         workouts.search(req.query.q).then(x=> res.send( x ) )
         .catch(next);
     })
-    .post('/', (req, res, next) => {
+    .post('/add', (req, res, next) => {
         workouts.addWorkout(
             req.body.Owner_id, 
             req.body.Privacy_Setting, 

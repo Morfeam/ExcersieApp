@@ -351,14 +351,16 @@
 <script>
 import { getUserWorkouts} from "@/models/workouts";
 import session from "@/models/session";
+var user = 1;
 export default {
     data(){
         return {
-            list: []
+            list: [],
+
         }
     },
     async created(){
-        this.list = await getUserWorkouts(1); 
+        this.list = await getUserWorkouts(user); 
     },
     components: {
         
