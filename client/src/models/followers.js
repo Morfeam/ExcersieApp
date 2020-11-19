@@ -4,12 +4,16 @@ import { myFetch } from "./my-fetch";
 
 
 
-export function getList() {
-    return myFetch('users');
+export function getAllFollows() {
+    return myFetch('followers');
 }
 
-export function getUserID(id) {
-    return myFetch('users/' + id);
+export function getFollowers(follower_id) {
+    return myFetch('followers/follower/' + follower_id);
+}
+
+export function getFollowing(following_id) {
+    return myFetch('followers/following/' + following_id);
 }
 
 export function addUser(FirstName, LastName, DOB, Password, User_Type, Email){

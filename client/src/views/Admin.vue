@@ -1,7 +1,7 @@
 <template>
     <div class="container">
   <div class="notification is-primary">
-    <p class = "title is-4">Welcome back Admin _Name_:</p>
+    <p class = "title is-4">Welcome back Admin!</p>
   </div>
 
     <hr>
@@ -106,7 +106,11 @@
 </div>
      </div>
     </div>
+
+
     <hr>
+
+    <div class="columns has-background-light is-centered">
     <div class ="">
     <p class = "title is-3">User Information</p>
       <table class='table'> 
@@ -114,60 +118,167 @@
                 <th>id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>User Created At</th>
                 <th>Password</th>
                 <th>DOB</th>
                 <th>Type</th>
+                <th>Email</th>
+                <th>Delete</th>
             </tr></thead>
             <tbody>
-                <tr v-for=" (x, i) in list " 
+                <tr v-for=" (x, i) in userList " 
                       :key="i"
                       :i="i"
                       :post="x">
                     <th>{{x.id}}</th>
                     <td>{{x.FirstName}}</td>
                     <td>{{x.LastName}}</td>
+                    <td>{{x.created_at}}</td>
                     <td>{{x.Password}}</td>
                     <td>{{x.DOB}}</td>
-                    <td>{{x.Type}}</td>
+                    <td>{{x.User_Type}}</td>
+                    <td>{{x.Email}}</td>
+                    <td> <button class="button is-danger">Delete User</button></td>
                 </tr>
             </tbody>
         </table>
+        <br>
         </div>
+  
+      </div>
     <hr>
+
+    <div class="columns has-background-light is-centered">
+    <div class ="column">
+    <p class = "title is-3">Exercise Types List</p>
+      <table class='table'> 
+          <thead><tr>
+                <th>Id</th>
+                <th>Date Created</th>
+                <th>Exercise Name</th>
+                <th>Delete</th>
+            </tr></thead>
+            <tbody>
+                <tr v-for=" (x, i) in exercises " 
+                      :key="i"
+                      :i="i"
+                      :post="x">
+                    <th>{{x.id}}</th>
+                    <td>{{x.created_at}}</td>
+                    <td>{{x.Name}}</td>
+                    <td><button class="button is-danger">Delete Exercise</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        </div>
+        <div class = "column">
+
+              <div class ="column">
+    <p class = "title is-3">Follower Data</p>
+      <table class='table'> 
+          <thead><tr>
+                <th>Id</th>
+                <th>Date Created</th>
+                <th>Follower</th>
+                <th>Follower Name</th>
+                <th>Following</th>
+                <th>Following Name</th>
+                <th>Delete</th>
+            </tr></thead>
+            <tbody>
+                <tr v-for=" (x, i) in follows " 
+                      :key="i"
+                      :i="i"
+                      :post="x">
+                    <th>{{x.id}}</th>
+                    <td>{{x.created_at}}</td>
+                    <td>{{x.Follower_id}}</td>
+                    <td>{{userList[x.Follower_id-1].FirstName}} {{userList[x.Follower_id-1].LastName}}</td>
+                    <td>{{x.Following_id}}</td>
+                    <td>{{userList[x.Following_id-1].FirstName}} {{userList[x.Following_id-1].LastName}}</td>
+                    <td><button class="button is-danger">Remove Follower</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        </div>
+
+          </div>
+      </div>
+    <hr>
+
+      <div class="columns has-background-light is-centered">
+    <div class ="column">
+    <p class = "title is-3">All Workouts</p>
+      <table class='table'> 
+                        <thead><tr>
+                              <th>Id</th>
+                              <th>Date (Created_at)</th>
+                              <th>Owner ID</th>
+                              <th>Privacy Setting</th>
+                              <th>Time</th>
+                              <th>Exercise Type</th>
+                              <th>Notes</th>
+                              <th>Distance</th>
+                              <th>Other Info</th>
+                              <th>Delete Workout</th>
+                           </tr></thead>
+                           <tbody>
+                              <tr v-for=" (x, i) in allWorkouts " 
+                                    :key="i"
+                                    :i="i"
+                                    :post="x">
+                                 <td>{{x.id}}</td>
+                                 <td>{{x.created_at}}</td>
+                                 <td>{{x.Owner_id}}</td>
+                                 <td>{{x.Privacy_Setting}}</td>
+                                 <td>{{x.Time}} min.</td>
+                                 <td>{{x.Exercise_Type}}</td>
+                                 <td>{{x.Note}}</td>
+                                 <td>{{x.Distance}} miles</td>
+                                 <td>{{x.Other_Info}}</td>
+                                 <td><button class="button is-danger">Delete Workout</button></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                      
+        <br>
+        </div>
+
+        </div>
+
+        <hr>
 
       </div>
 </template>
 
 <script>
-import { getList,addUser } from "@/models/users";
+import { getWorkouts} from "@/models/workouts";
+import {  getList, getUserID} from "@/models/users";
+import { getAllFollows} from "@/models/followers";
+import { getExerciseList} from "@/models/exercise_types";
 import session from "@/models/session";
 export default {
     data(){
         return {
-            list: [],
-            Fname: '',
-            Lname: '',
-            mail: '',
-            Dateofbirth: '',
-            pword: ''
+            userList: [],
+            exercises: [],
+            follows: [],
+            allWorkouts: [],
         }
     },
     async created(){
-        this.list = await getList(); 
-        this.list = await newUser(Fname,Lname,Dateofbirth,mail,pword);
+        this.userList = await getList();
+        this.exercises = await getExerciseList();
+        this.follows = await getAllFollows();
+        this.allWorkouts = await getWorkouts();
     },
     components: {
         
     },
     methods: {
-        register(){
-           console.log(Fname,Lname,mail,DateofBirth,pword)
-        }
-    },
-    watch: {
-      mail (value){
-        console.log('email has changed', value)
-      }
+
     }
     
 }

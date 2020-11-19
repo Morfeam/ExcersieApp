@@ -16,13 +16,7 @@ async function getAll(){
 }
 
 async function get(id){
-    const sql = `SELECT 
-        *,
-        (SELECT Value FROM ${PREFIX}ContactMethods Where User_id = ${PREFIX}Users.id AND Type='${cm.Types.EMAIL}' AND IsPrimary = true) as PrimaryEmail
-    FROM ${PREFIX}Users WHERE id=?`;
-    const rows = await mysql.query(sql, [id]);
-    if(!rows.length) throw { status: 404, message: "Sorry, there is no such user" };
-    return rows[0];
+    return await mysql.query(`SELECT * FROM ${PREFIX}Users Where id = ?`,[id]);
 }
 
 async function login(email, password){

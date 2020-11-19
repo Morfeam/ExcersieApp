@@ -1,32 +1,39 @@
 <template>
+
+   <div class="notification is-secondary marg">
         <div class="container">
   <div class="notification is-primary">
-    <p class = "title is-4">Welcome back User.FirstName</p>
+    <p class = "title is-4" v-for=" (x, i) in Thename " 
+                           :key="i"
+                           :i="i"
+                           :post="x">
+      Welcome back {{x.FirstName}}!</p>
   </div>
         
 <hr>
+
     <p class = "title is-3">Recent Workouts</p>
     <div class="columns">
         <div class="column">
         <p class = "title is-5">ID Number</p>
         <p class = "subtitle is-6">Exercise Type</p>
         <p class = "subtitle is-6">Time</p>
-        <p class = "subtitle is-6">Date (Created_at)</p>
+        <p class = "subtitle is-6">Date</p>
         <p class = "subtitle is-6">Distance</p>
         <p class = "subtitle is-6">Note</p>
         <p class = "subtitle is-6">Ohther Info</p>
         </div>
-        <div class="column" v-for=" (x, i) in 3 " 
+        <div class="column" v-for=" (x, i) in 1" 
                       :key="i"
                       :i="i"
                       :post="x">
-        <p class = "title is-5">{{x}}</p>
-        <p class = "subtitle is-6">Running</p>
-        <p class = "subtitle is-6">30 Minutes</p>
-        <p class = "subtitle is-6">11/15/20</p>
-        <p class = "subtitle is-6">3 Miles</p>
-        <p class = "subtitle is-6">No Notes.</p>
-        <p class = "subtitle is-6">No Other Info.</p>
+        <p class = "title is-5">{{list[list.length -1].id}}</p>
+        <p class = "subtitle is-6">{{list[list.length -1].Exercise_Type}}</p>
+        <p class = "subtitle is-6">{{list[list.length -1].Time}}</p>
+        <p class = "subtitle is-6">{{list[list.length -1].created_at}}</p>
+        <p class = "subtitle is-6">{{list[list.length -1].Distance}}</p>
+        <p class = "subtitle is-6">{{list[list.length -1].Note}}</p>
+        <p class = "subtitle is-6">{{list[list.length -1].Other_Info}}</p>
         </div>
     </div>
 <hr>
@@ -46,11 +53,11 @@
                <option>
                   Exercises
                </option>
-            <option  v-for=" (x, i) in 3 " 
+            <option  v-for=" (x, i) in exercises " 
                            :key="i"
                            :i="i"
                            :post="x">
-               Exercise Type #{{x}} 
+               {{x.Name}} 
                </option>
             </select>
          </div>
@@ -92,10 +99,11 @@
                            :key="i"
                            :i="i"
                            :post="x">
-               {{x}} - Privacy Setting Name 
+               {{x}}
                </option>
             </select>
          </div>
+         <p>1-only me, 2-only friends, 3-public</p>
       </div>
       </div>
 
@@ -134,21 +142,29 @@
                <div class="columns">
                   <div class="column">
 
-                        <p class = "title is-6">Followers: {{FollowerNumber}}</p>
+                        <p class = "title is-6">Followers: {{Followerlist.length}}</p>
                         <table class='table'> 
                         <thead><tr>
                               <th>Id</th>
                               <th>First Name</th>
                               <th>Last Name</th>
+                              <th>Follow Back</th>
                            </tr></thead>
                            <tbody>
-                              <tr v-for=" (x, i) in 5 " 
+                              <tr v-for=" (x, i) in Followerlist " 
                                     :key="i"
                                     :i="i"
                                     :post="x">
-                                 <th>1{{x.id}}</th>
-                                 <td>Matt{{x.FirstName}}</td>
-                                 <td>Morfea{{x.LastName}}</td>
+                                 <th>{{x.Following_id}}</th>
+                                 <td>{{userList[x.Following_id -1].FirstName}}</td>
+                                 <td>{{userList[x.Following_id -1].LastName}}</td>
+                                 <td>
+
+                                    <button class="button is-secondary is-pulled-right">
+                                       Follow back
+                                    </button>
+
+                                 </td>
                               </tr>
                            </tbody>
                         </table>
@@ -156,7 +172,7 @@
                   </div>
                   <div class="column">
 
-                     <p class = "title is-6">Following: {{FollowingNumber}}</p>
+                     <p class = "title is-6">Following: {{Followinglist.length}}</p>
                      <table class='table'> 
                         <thead><tr>
                               <th>Id</th>
@@ -164,13 +180,13 @@
                               <th>Last Name</th>
                            </tr></thead>
                            <tbody>
-                              <tr v-for=" (x, i) in 5 " 
+                              <tr v-for=" (x, i) in Followinglist " 
                                     :key="i"
                                     :i="i"
                                     :post="x">
-                                 <th>2{{x.id}}</th>
-                                 <td>Joe{{x.FirstName}}</td>
-                                 <td>Biden{{x.LastName}}</td>
+                                 <th>{{x.Follower_id}}</th>
+                                 <td>{{userList[x.Follower_id -1].FirstName}}</td>
+                                 <td>{{userList[x.Follower_id-1].LastName}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -226,141 +242,60 @@
                            </tbody>
                         </table>
 
-<hr>
-    <p class = "title is-3">Add a Workout</p>
-    <center>
-    <div class="columns">
-     <div class="column">
-     <p class = "title is-5">Jogging / Running</p>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="Min" placeholder="Enter Amount of Time">
-        </p>
-        </div>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="String" placeholder="Enter Number of Miles">
-        </p>
-        </div>
-        <div class="buttons">
-        <button class="button is-primary">Add</button>
-        <button class="button is-danger">Remove</button>
-        </div>
-     </div>
-     <div class="column">
-     <p class = "title is-5">Biking</p>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="Min" placeholder="Enter Amount of Time">
-        </p>
-        </div>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="String" placeholder="Enter Number of Miles">
-        </p>
-        </div>
-        <div class="buttons">
-        <button class="button is-primary">Add</button>
-        <button class="button is-danger">Remove</button>
-        </div>
-     </div>
-     <div class="column">
-     <p class = "title is-5">Hiking</p>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="Min" placeholder="Enter Amount of Time">
-        </p>
-        </div>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="String" placeholder="Enter Number of Miles">
-        </p>
-        </div>
-        <div class="buttons">
-        <button class="button is-primary">Add</button>
-        <button class="button is-danger">Remove</button>
-        </div>
-     </div>
-     <div class="column">
-     <p class = "title is-5">Weight Lifting</p>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="Min" placeholder="Enter Amount of Time">
-        </p>
-        </div>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="String" placeholder="Comments / Notes">
-        </p>
-        </div>
-        <div class="buttons">
-        <button class="button is-primary">Add</button>
-        <button class="button is-danger">Remove</button>
-        </div>
-        
-     </div>
-     
-    <div class="column">
-      <p class = "title is-5">Other</p>
-      <div class="field">
-        <p class="control">
-           <input class="input" type="Activity" placeholder="Enter Name of Activity">
-        </p>
-        </div>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="Min" placeholder="Enter Amount of Time">
-        </p>
-        </div>
-        <div class="field">
-        <p class="control">
-           <input class="input" type="String" placeholder="Comments / Notes">
-        </p>
-        </div>
-        <div class="buttons">
-        <button class="button is-primary ">Add</button>
-        <button class="button is-danger">Remove</button>
-        </div>
-        
-    </div>
-    </div>
-      </center>
-
-<hr>
-
+<div>
 <p class = "title is-3">Share</p>
-    <div class="buttons">
-    <button class="button is-light">Share Jogging Info</button>
-    <button class="button is-light">Share Biking Info</button>
-    <button class="button is-light">Share Hiking Info</button>
-    <button class="button is-light">Share Lifting Info</button>
-    <button class="button is-light">Share Other Info</button>
-    </div>
+    <label class="label">Select a Workout:</label>
+      <div class="control">
+         <div class="select" >
+            <select>
+               <option>Workout ID</option>
+            <option  v-for=" (x, i) in list " 
+                           :key="i"
+                           :i="i"
+                           :post="x">
+               Workout ID: {{x.id}} 
+               </option>
+            </select>
+         </div>
+      </div>
+      </div>
         <div class="control">
         <textarea class="textarea" placeholder="Comments and Information about Workout"></textarea>
         </div>
         <br>
     <button class="button is-primary is-pulled-right">Submit to Feed</button>
     <br>
-<hr>
 
+ </div>
+</div>
 
-  </div>
 </template>
 
 <script>
 import { getUserWorkouts} from "@/models/workouts";
+import {  getList, getUserID} from "@/models/users";
+import { getFollowers, getFollowing} from "@/models/followers";
+import { getExerciseList} from "@/models/exercise_types";
 import session from "@/models/session";
 var user = 1;
 export default {
     data(){
         return {
             list: [],
-
+            Thename: [],
+            Followinglist: [],
+            Followerlist: [],
+            userList: [],
+            exercises: [],
         }
     },
     async created(){
         this.list = await getUserWorkouts(user); 
+        this.Thename = await getUserID(user); 
+        this.Followinglist = await getFollowing(user); 
+        this.Followerlist = await getFollowers(user); 
+        this.userList = await getList();
+        this.exercises = await getExerciseList();
     },
     components: {
         
@@ -374,5 +309,16 @@ export default {
 </script>
 
 <style>
+#grad1{
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom right, red, yellow);
+}
+#marg{
+   margin: 70px;
+}
 
 </style>
