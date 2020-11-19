@@ -1,5 +1,8 @@
 <template>
 
+<div class = "columns has-background-light">
+  <div class = "column">
+
 <div class = 'level section'>
 <div class = 'level-item'>
 <form>
@@ -49,6 +52,9 @@
 
 </div>
 </div>
+
+  </div>
+  </div>
 
 
 </template>

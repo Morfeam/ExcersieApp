@@ -1,7 +1,10 @@
 <template>
+
+  <div id = "grad1"><br> 
+
     <div class="container">
   <div class="notification is-primary">
-    <p class = "title is-4">Welcome back Admin!</p>
+    <p class = "title is-4">Welcome back Admins!</p>
   </div>
 
     <hr>
@@ -238,7 +241,7 @@
                                  <td>{{x.Note}}</td>
                                  <td>{{x.Distance}} miles</td>
                                  <td>{{x.Other_Info}}</td>
-                                 <td><button class="button is-danger">Delete Workout</button></td>
+                                 <td><button class="button is-danger" name="Workout_delete">Delete Workout</button></td>
                               </tr>
                            </tbody>
                         </table>
@@ -251,6 +254,8 @@
         <hr>
 
       </div>
+
+      <br></div>
 </template>
 
 <script>
@@ -285,5 +290,12 @@ export default {
 </script>
 
 <style>
-
+  #grad1{
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  background: rgb(189,189,189);
+  background: linear-gradient(180deg, rgba(189,189,189,1) 0%, rgba(168,126,193,1) 100%);
+  }
 </style>

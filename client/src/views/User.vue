@@ -1,7 +1,11 @@
 <template>
 
-   <div class="notification is-secondary marg">
+   <div id = "grad1"><br> 
         <div class="container">
+
+   <div class="columns has-background-light">
+   <div class ="column"> 
+
   <div class="notification is-primary">
     <p class = "title is-4" v-for=" (x, i) in Thename " 
                            :key="i"
@@ -14,7 +18,7 @@
 
     <p class = "title is-3">Recent Workouts</p>
     <div class="columns">
-        <div class="column">
+        <div class="column is-centered">
         <p class = "title is-5">ID Number</p>
         <p class = "subtitle is-6">Exercise Type</p>
         <p class = "subtitle is-6">Time</p>
@@ -140,7 +144,7 @@
                <p class = "title is-4">Followers and Following</p>
 
                <div class="columns">
-                  <div class="column">
+                  <div class="column is-centered">
 
                         <p class = "title is-6">Followers: {{Followerlist.length}}</p>
                         <table class='table'> 
@@ -170,7 +174,7 @@
                         </table>
 
                   </div>
-                  <div class="column">
+                  <div class="column is-centered">
 
                      <p class = "title is-6">Following: {{Followinglist.length}}</p>
                      <table class='table'> 
@@ -214,7 +218,7 @@
 <hr>
 
       <p class = "title is-3">All Workouts</p>
-      <table class='table'> 
+      <table class='table '> 
                         <thead><tr>
                               <th>Id</th>
                               <th>Date (Created_at)</th>
@@ -242,6 +246,7 @@
                            </tbody>
                         </table>
 
+
 <div>
 <p class = "title is-3">Share</p>
     <label class="label">Select a Workout:</label>
@@ -266,7 +271,12 @@
     <button class="button is-primary is-pulled-right">Submit to Feed</button>
     <br>
 
- </div>
+   </div>
+   </div>
+
+
+</div>
+<br>
 </div>
 
 </template>
@@ -314,11 +324,8 @@ export default {
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: red; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to bottom right, red, yellow);
-}
-#marg{
-   margin: 70px;
-}
+    background: rgb(189,189,189);
+   background: linear-gradient(180deg, rgba(189,189,189,1) 0%, rgba(168,126,193,1) 100%);
+    }
 
 </style>
