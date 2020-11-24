@@ -70,7 +70,7 @@
 </div>
 <div class="field">
   <p class="control">
-    <button class="button is-primary is-pulled-right" @click="signmeup">
+    <button class="button is-primary is-pulled-right" @click.prevent="signmeup">
       Signup
     </button>
   </p>
@@ -78,7 +78,6 @@
 </div>
 
 </form>
-
 
 </div>
 </div>
@@ -91,7 +90,13 @@
 import { addUser} from "@/models/users";
 import session from "@/models/session";
 export default {
-   
+   methods:
+   {
+     async signmeup(){
+        const data = await addUser(this.Fname, this.Lname, this.DateofBirth, this.password, 6, this.email);
+        this.status.push('Registration Successful');
+      }
+   }
 }
 </script>
   
