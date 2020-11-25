@@ -26,7 +26,7 @@ router
         follow.search(req.query.q).then(x=> res.send( x ) )
         .catch(next);
     })
-    .post('/', (req, res, next) => {
+    .post('/add', (req, res, next) => {
         follow.addFollow(
             req.body.Following_id,
             req.body.Follower_id, 

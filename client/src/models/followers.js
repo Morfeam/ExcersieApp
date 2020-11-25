@@ -16,11 +16,6 @@ export function getFollowing(following_id) {
     return myFetch('followers/following/' + following_id);
 }
 
-export function addUser(FirstName, LastName, DOB, Password, User_Type, Email){
-    return myFetch('users/add/' + FirstName, LastName, DOB, Password, User_Type, Email);
-}
-
-export function addUser2(user){
-    console.log("user:" +user);
-    return myFetch('users/add/:' + user);
+export function addFollowing(Following_id,Follower_id,Is_Accepted){
+    return myFetch('followers/add', {Following_id: Following_id, Follower_id: Follower_id, Is_Accepted: Is_Accepted });
 }

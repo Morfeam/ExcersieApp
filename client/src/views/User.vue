@@ -43,7 +43,7 @@
 <hr>
 
  <form>
-  <p class="title is-3">Workout Setup:</p>
+  <p class="title is-3">Add a Workout:</p>
 
   <div class="columns">
 
@@ -159,12 +159,12 @@
                                     :key="i"
                                     :i="i"
                                     :post="x">
-                                 <th>{{x.Following_id}}</th>
+                                 <th v-bind="value">{{x.Following_id}}</th>
                                  <td>{{userList[x.Following_id -1].FirstName}}</td>
                                  <td>{{userList[x.Following_id -1].LastName}}</td>
                                  <td>
 
-                                    <button class="button is-secondary is-pulled-right">
+                                    <button class="button is-secondary is-pulled-right" @click.prevent="followback(x.Following_id)">
                                        Follow back
                                     </button>
 
@@ -284,7 +284,7 @@
 <script>
 import { getUserWorkouts, addWorkout} from "@/models/workouts";
 import {  getList, getUserID} from "@/models/users";
-import { getFollowers, getFollowing} from "@/models/followers";
+import { getFollowers, getFollowing, addFollowing} from "@/models/followers";
 import { getExerciseList} from "@/models/exercise_types";
 import session from "@/models/session";
 var user = 1;
@@ -298,6 +298,9 @@ export default {
             userList: [],
             exercises: [],
         }
+    },
+    props:{
+       
     },
     async created(){
         this.list = await getUserWorkouts(user); 
@@ -314,6 +317,10 @@ export default {
       async addTheWorkout(){
         const data = await addWorkout(user,this.privacy, this.tme, this.exType, this.Note, this.dist, " ");
         this.status.push('Add Workout Successful');
+      },
+      async followback(value){
+        const data = await addFollowing(user,value,1);
+        this.status.push('Following Successful');
       }
     }
     
