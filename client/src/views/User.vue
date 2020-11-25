@@ -42,8 +42,8 @@
     </div>
 <hr>
 
-<form>
-  <p class="title is-3">Add a Workout</p>
+ <form>
+  <p class="title is-3">Workout Setup:</p>
 
   <div class="columns">
 
@@ -52,8 +52,8 @@
       <div class="field is-pulled-right">
       <label class="label">Select an Exercise</label>
       <div class="control">
-         <div class="select" >
-            <select>
+         <div class="select">
+            <select v-model="exType">
                <option>
                   Exercises
                </option>
@@ -74,7 +74,7 @@
 
       <div class="field">
           <label class="label">Set Amount of Time</label>
-         <input class="input" type="" name="Time" placeholder="Time">
+         <input class="input" type="" name="Time" placeholder="Time"  v-model="tme">
       </div>
       
       </div>
@@ -83,7 +83,7 @@
 
       <div class="field">
          <label class="label">Set Distance</label>
-         <input class="input" type="" name="Distance" placeholder="Distance">
+         <input class="input" type="" name="Distance" placeholder="Distance"  v-model="dist">
       </div>
 
       </div>
@@ -95,7 +95,7 @@
          <label class="label">Select a Privacy Setting</label>
       <div class="control">
          <div class="select" >
-            <select>
+            <select  v-model="privacy">
                <option>
                   Privacy Settings
                </option>
@@ -120,14 +120,14 @@
                      <div class="field">
                      <label class="label">Notes</label>
                      <div class="control">
-                        <textarea class="textarea" name= "Notes" placeholder="Notes"></textarea>
+                        <textarea class="textarea" name= "Notes" placeholder="Notes"  v-model="Note"></textarea>
                      </div>
                      </div>
 
          </div>
 <div class="field">
   <p class="control">
-    <button class="button is-info is-pulled-right" name="submit">
+    <button class="button is-info is-pulled-right" name="submit" @click.prevent="addTheWorkout">
       Upload Workout
     </button>
   </p>
@@ -282,7 +282,7 @@
 </template>
 
 <script>
-import { getUserWorkouts} from "@/models/workouts";
+import { getUserWorkouts, addWorkout} from "@/models/workouts";
 import {  getList, getUserID} from "@/models/users";
 import { getFollowers, getFollowing} from "@/models/followers";
 import { getExerciseList} from "@/models/exercise_types";
@@ -311,7 +311,10 @@ export default {
         
     },
     methods: {
-
+      async addTheWorkout(){
+        const data = await addWorkout(user,this.privacy, this.tme, this.exType, this.Note, this.dist, " ");
+        this.status.push('Add Workout Successful');
+      }
     }
     
     
