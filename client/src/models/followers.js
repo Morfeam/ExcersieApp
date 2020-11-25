@@ -19,3 +19,7 @@ export function getFollowing(following_id) {
 export function addFollowing(Following_id,Follower_id,Is_Accepted){
     return myFetch('followers/add', {Following_id: Following_id, Follower_id: Follower_id, Is_Accepted: Is_Accepted });
 }
+
+export function delFollow(id){
+    return myFetch('followers/delete/' + id);
+}

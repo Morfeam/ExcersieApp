@@ -45,7 +45,7 @@ router
             res.send( newFollow );
         }).catch(next)
     })
-    .delete('/:id', (req, res, next) => {
+    .get('/delete/:id', (req, res, next) => {
         follow.removeFollow(req.params.id).then(msg => {
             res.send( msg );
         }).catch(next)

@@ -159,7 +159,7 @@
                                     :key="i"
                                     :i="i"
                                     :post="x">
-                                 <th v-bind="value">{{x.Following_id}}</th>
+                                 <th v-bind="fol">{{x.Following_id}}</th>
                                  <td>{{userList[x.Following_id -1].FirstName}}</td>
                                  <td>{{userList[x.Following_id -1].LastName}}</td>
                                  <td>
@@ -188,9 +188,17 @@
                                     :key="i"
                                     :i="i"
                                     :post="x">
-                                 <th>{{x.Follower_id}}</th>
+                                 <th v-bind="unfol">{{x.Follower_id}}</th>
                                  <td>{{userList[x.Follower_id -1].FirstName}}</td>
                                  <td>{{userList[x.Follower_id-1].LastName}}</td>
+                                 <td>
+
+                                    <button class="button is-warning is-pulled-right" @click.prevent="unfollow(x.id)">
+                                       Unfollow
+                                    </button>
+
+                                 </td>
+                              
                               </tr>
                            </tbody>
                         </table>
@@ -284,7 +292,7 @@
 <script>
 import { getUserWorkouts, addWorkout} from "@/models/workouts";
 import {  getList, getUserID} from "@/models/users";
-import { getFollowers, getFollowing, addFollowing} from "@/models/followers";
+import { getFollowers, getFollowing, addFollowing, delFollow} from "@/models/followers";
 import { getExerciseList} from "@/models/exercise_types";
 import session from "@/models/session";
 var user = 1;
@@ -318,8 +326,12 @@ export default {
         const data = await addWorkout(user,this.privacy, this.tme, this.exType, this.Note, this.dist, " ");
         this.status.push('Add Workout Successful');
       },
-      async followback(value){
-        const data = await addFollowing(user,value,1);
+      async followback(fol){
+        const data = await addFollowing(user,fol,1);
+        this.status.push('Following Successful');
+      },
+      async unfollow(unfol){
+        const data = await delFollow(unfol);
         this.status.push('Following Successful');
       }
     }
