@@ -43,7 +43,7 @@ router
             res.send( newComment );
         }).catch(next)
     })
-    .delete('/:id', (req, res, next) => {
+    .delete('/delete/:id', (req, res, next) => {
         comments.remove(req.params.id).then(msg => {
             res.send( msg );
         }).catch(next)

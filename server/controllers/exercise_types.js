@@ -32,7 +32,7 @@ router
             res.send( upExercise );
         }).catch(next)
     })
-    .delete('/:id', (req, res, next) => {
+    .delete('/delete/:id', (req, res, next) => {
         exercise.removeExercise(req.params.id).then(msg => {
             res.send( msg );
         }).catch(next)

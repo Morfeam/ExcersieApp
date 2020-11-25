@@ -234,7 +234,7 @@
                     <td>{{x.DOB}}</td>
                     <td>{{x.User_Type}}</td>
                     <td>{{x.Email}}</td>
-                    <td> <button class="button is-danger">Delete User</button></td>
+                    <td> <button class="button is-danger" @click.prevent="deleteUser(x.id)">Delete User</button></td>
                 </tr>
             </tbody>
         </table>
@@ -262,7 +262,7 @@
                     <th>{{x.id}}</th>
                     <td>{{x.created_at}}</td>
                     <td>{{x.Name}}</td>
-                    <td><button class="button is-danger">Delete Exercise</button></td>
+                    <td><button class="button is-danger" @click.prevent="deleteExType(x.id)">Delete Exercise</button></td>
                 </tr>
             </tbody>
         </table>
@@ -293,7 +293,7 @@
                     <td>{{userList[x.Follower_id-1].FirstName}} {{userList[x.Follower_id-1].LastName}}</td>
                     <td>{{x.Following_id}}</td>
                     <td>{{userList[x.Following_id-1].FirstName}} {{userList[x.Following_id-1].LastName}}</td>
-                    <td><button class="button is-danger">Remove Follower</button></td>
+                    <td><button class="button is-warning" @click.prevent="deleteFollow(x.id)">Remove Follower</button></td>
                 </tr>
             </tbody>
         </table>
@@ -334,7 +334,7 @@
                                  <td>{{x.Note}}</td>
                                  <td>{{x.Distance}} miles</td>
                                  <td>{{x.Other_Info}}</td>
-                                 <td><button class="button is-danger" name="Workout_delete">Delete Workout</button></td>
+                                 <td><button class="button is-danger" name="Workout_delete" @click.prevent="delWorkout(x.id)">Delete Workout</button></td>
                               </tr>
                            </tbody>
                         </table>
@@ -352,10 +352,10 @@
 </template>
 
 <script>
-import { getWorkouts, addWorkout} from "@/models/workouts";
-import {  getList, getUserID, addUser} from "@/models/users";
-import { getAllFollows} from "@/models/followers";
-import { getExerciseList} from "@/models/exercise_types";
+import { getWorkouts, addWorkout, deleteWorkout} from "@/models/workouts";
+import {  getList, getUserID, addUser, delUser} from "@/models/users";
+import { getAllFollows, delFollow} from "@/models/followers";
+import { getExerciseList, delExerciseType} from "@/models/exercise_types";
 import session from "@/models/session";
 export default {
     data(){
@@ -383,6 +383,22 @@ export default {
       async addTheWorkout(){
         const data = await addWorkout(this.uID,this.privacy, this.tme, this.exType, this.Note, this.dist, " ");
         this.status.push('Add Workout Successful');
+      },
+      async deleteFollow(unfol){
+        const data = await delFollow(unfol);
+        this.status.push('Delete Follow Successful');
+      },
+      async delWorkout(workoutID){
+        const data = await deleteWorkout(workoutID);
+        this.status.push('Delete Workout Successful');
+      },
+      async deleteExType(ExType){
+        const data = await deleteWorkout(ExType);
+        this.status.push('Delete Exercise Type Successful');
+      },
+      async deleteUser(uid){
+        const data = await delUser(uid);
+        this.status.push('Delete User Successful');
       }
     }
     

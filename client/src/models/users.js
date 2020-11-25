@@ -16,7 +16,6 @@ export function addUser(FirstName, LastName, DOB, Password, User_Type, Email){
     return myFetch('users/add', { FirstName: FirstName, LastName: LastName, DOB: DOB, Password:Password, User_Type: User_Type, Email: Email});
 }
 
-export function addUser2(user){
-    console.log("user:" + user);
-    return myFetch('users/add/:' + user);
+export function delUser(id){
+    return myFetch('users/delete/' + id);
 }

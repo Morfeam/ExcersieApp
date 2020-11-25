@@ -236,6 +236,7 @@
                               <th>Notes</th>
                               <th>Distance</th>
                               <th>Other Info</th>
+                              <th>Delete Workout</th>
                            </tr></thead>
                            <tbody>
                               <tr v-for=" (x, i) in list " 
@@ -250,6 +251,14 @@
                                  <td>{{x.Note}}</td>
                                  <td>{{x.Distance}} miles</td>
                                  <td>{{x.Other_Info}}</td>
+                                  <td>
+
+                                    <button class="button is-danger is-pulled-right" @click.prevent="delWorkout(x.id)">
+                                       Delete Workout
+                                    </button>
+
+                                 </td>
+
                               </tr>
                            </tbody>
                         </table>
@@ -290,7 +299,7 @@
 </template>
 
 <script>
-import { getUserWorkouts, addWorkout} from "@/models/workouts";
+import { getUserWorkouts, addWorkout, deleteWorkout} from "@/models/workouts";
 import {  getList, getUserID} from "@/models/users";
 import { getFollowers, getFollowing, addFollowing, delFollow} from "@/models/followers";
 import { getExerciseList} from "@/models/exercise_types";
@@ -332,6 +341,10 @@ export default {
       },
       async unfollow(unfol){
         const data = await delFollow(unfol);
+        this.status.push('Following Successful');
+      },
+      async delWorkout(workoutID){
+        const data = await deleteWorkout(workoutID);
         this.status.push('Following Successful');
       }
     }

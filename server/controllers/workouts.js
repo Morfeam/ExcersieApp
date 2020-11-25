@@ -40,7 +40,7 @@ router
             res.send( newWorkout );
         }).catch(next)
     })
-    .delete('/:id', (req, res, next) => {
+    .get('/delete/:id', (req, res, next) => {
         workouts.removeWorkout(req.params.id).then(msg => {
             res.send( msg );
         }).catch(next)
