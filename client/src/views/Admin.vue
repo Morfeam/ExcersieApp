@@ -99,10 +99,16 @@
                      <div class="field">
                      <label class="label">Notes</label>
                      <div class="control">
-                        <textarea class="textarea" name= "Notes" placeholder="Notes"  v-model="Note"></textarea>
+                        <textarea class="textarea" rows="3" name= "Notes" placeholder="Notes"  v-model="Note"></textarea>
                      </div>
                      </div>
-
+                    <br>
+                    <div class="field">
+                     <label class="label">Post Info</label>
+                     <div class="control">
+                        <textarea class="textarea" rows="3" name= "Notes" placeholder="Post Info"  v-model="Other_Info"></textarea>
+                     </div>
+                     </div>
          </div>
 <div class="field">
   <p class="control">
@@ -381,7 +387,7 @@ export default {
         this.status.push('Registration Successful');
       },
       async addTheWorkout(){
-        const data = await addWorkout(this.uID,this.privacy, this.tme, this.exType, this.Note, this.dist, " ");
+        const data = await addWorkout(this.uID,this.privacy, this.tme, this.exType, this.Note, this.dist, this.Other_Info);
         this.status.push('Add Workout Successful');
       },
       async deleteFollow(unfol){

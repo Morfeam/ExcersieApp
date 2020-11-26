@@ -120,11 +120,23 @@
                      <div class="field">
                      <label class="label">Notes</label>
                      <div class="control">
-                        <textarea class="textarea" name= "Notes" placeholder="Notes"  v-model="Note"></textarea>
+                        <textarea class="textarea" rows="3" name= "Notes" placeholder="Notes"  v-model="Note"></textarea>
                      </div>
                      </div>
 
          </div>
+         <br>
+         <div class="field">
+
+                     <div class="field">
+                     <label class="label">Post Info</label>
+                     <div class="control">
+                        <textarea class="textarea" name= "Notes" rows="3" placeholder="Post Info"  v-model="Other_Info"></textarea>
+                     </div>
+                     </div>
+
+         </div>
+
 <div class="field">
   <p class="control">
     <button class="button is-info is-pulled-right" name="submit" @click.prevent="addTheWorkout">
@@ -312,7 +324,7 @@
         </div>
         <br>
     <button class="button is-primary is-pulled-right" @click.prevent="updateWork">
-       Submit to Feed
+       Update Workout
        </button>
     <br>
 
@@ -360,7 +372,7 @@ export default {
     },
     methods: {
       async addTheWorkout(){
-        const data = await addWorkout(user,this.privacy, this.tme, this.exType, this.Note, this.dist, " ");
+        const data = await addWorkout(user,this.privacy, this.tme, this.exType, this.Note, this.dist, this.Other_Info);
         this.status.push('Add Workout Successful');
       },
       async followback(fol){
