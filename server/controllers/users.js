@@ -58,7 +58,7 @@ router
             res.send( { ...newUser, Password: undefined } );
         }).catch(next)
     })
-   .put('/:id', (req, res, next) => {
+   .get('/update/:id', (req, res, next) => {
         users.update( req.params.id,
             req.body.FirstName,
             req.body.LastName, 

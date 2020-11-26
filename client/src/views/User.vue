@@ -164,7 +164,7 @@
                                  <td>{{userList[x.Following_id -1].LastName}}</td>
                                  <td>
 
-                                    <button class="button is-secondary is-pulled-right" @click.prevent="followback(x.Following_id)">
+                                    <button class="button is-info is-pulled-right" @click.prevent="followback(x.Following_id)">
                                        Follow back
                                     </button>
 
@@ -266,26 +266,54 @@
 
 <div>
 <p class = "title is-3">Share</p>
+
+<div class = "columns">
+   <div class = "column">
     <label class="label">Select a Workout:</label>
       <div class="control">
          <div class="select" >
-            <select>
+            <select v-model="selectToShare">
                <option>Workout ID</option>
             <option  v-for=" (x, i) in list " 
                            :key="i"
                            :i="i"
                            :post="x">
-               Workout ID: {{x.id}} 
+               {{x.id}} 
                </option>
             </select>
          </div>
       </div>
+
+   </div>
+   <div class = "column">
+    <label class="label">Select a Privacy Setting:</label>
+      <div class="control">
+         <div class="select" >
+            <select v-model="updatePrivacySetting">
+               <option>Privacy Setting</option>
+             <option  v-for=" (x, i) in 3 " 
+                           :key="i"
+                           :i="i"
+                           :post="x">
+               {{x}}
+               </option>
+            </select>
+         </div>
       </div>
+      <p>1-only me, 2-only friends, 3-public</p>
+      </div>
+
+      </div>
+
+      </div>
+
         <div class="control">
-        <textarea class="textarea" placeholder="Comments and Information about Workout"></textarea>
+        <textarea class="textarea" placeholder="Comments and Information about Workout" v-model="updateOtherInfo"></textarea>
         </div>
         <br>
-    <button class="button is-primary is-pulled-right">Submit to Feed</button>
+    <button class="button is-primary is-pulled-right" @click.prevent="updateWork">
+       Submit to Feed
+       </button>
     <br>
 
    </div>
@@ -299,7 +327,7 @@
 </template>
 
 <script>
-import { getUserWorkouts, addWorkout, deleteWorkout} from "@/models/workouts";
+import { getUserWorkouts, addWorkout, updateWorkout, deleteWorkout} from "@/models/workouts";
 import {  getList, getUserID} from "@/models/users";
 import { getFollowers, getFollowing, addFollowing, delFollow} from "@/models/followers";
 import { getExerciseList} from "@/models/exercise_types";
@@ -346,7 +374,11 @@ export default {
       async delWorkout(workoutID){
         const data = await deleteWorkout(workoutID);
         this.status.push('Following Successful');
-      }
+      },
+      async updateWork(){
+        const data = await updateWorkout(this.selectToShare,this.updatePrivacySetting,this.updateOtherInfo);
+        this.status.push('Update Successful');
+      },
     }
     
     

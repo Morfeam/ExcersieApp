@@ -40,6 +40,16 @@ router
             res.send( newWorkout );
         }).catch(next)
     })
+    .post('/update/:id', (req, res, next) => {
+        const id = +req.params.id;
+        workouts.updateWorkout(
+            id,
+            req.body.Privacy_Setting, 
+            req.body.Other_Info,
+        ).then(newWorkout => {
+            res.send( newWorkout );
+        }).catch(next)
+    })
     .get('/delete/:id', (req, res, next) => {
         workouts.removeWorkout(req.params.id).then(msg => {
             res.send( msg );

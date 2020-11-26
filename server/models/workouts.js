@@ -31,6 +31,12 @@ async function addWorkout( Owner_id, Privacy_Setting, Time, Exercise_Type, Note,
     return await mysql.query(sql, [params]);
 }
 
+async function updateWorkout (id, Privacy_Setting, Other_Info){
+    const sql = `UPDATE ${PREFIX}Workouts SET ? WHERE id = ?;`;
+    const params = { Privacy_Setting, Other_Info};
+    return await mysql.query(sql, [params, id]);
+}
+
 async function removeWorkout(id){
     const sql = `DELETE FROM ${PREFIX}Workouts WHERE id = ?`;
     return await mysql.query(sql, [id]);
@@ -38,4 +44,4 @@ async function removeWorkout(id){
 
 const search = async q => await mysql.query(`SELECT id, Owner_id, Exercise_Type FROM ${PREFIX}Workouts WHERE Owner_id LIKE ? OR Exercise_Type LIKE ?; `, [`%${q}%`, `%${q}%`]);
 
-module.exports = { getAllWorkouts, getUserWorkouts, getWorkout, addWorkout, removeWorkout, search, Privacy_Setting }
+module.exports = { getAllWorkouts, getUserWorkouts, getWorkout, addWorkout, updateWorkout,removeWorkout, search, Privacy_Setting }
