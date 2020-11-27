@@ -17,6 +17,11 @@ router
         workouts.getUserWorkouts(Owner_id).then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
         .catch(next);
     })
+    .get('/public/:PSetting', (req, res, next) => {
+        const Setting = +req.params.PSetting;
+        workouts.getPublicWorkouts(Setting).then(x=> res.send( x.map(workout=> ({ ...workout}) ) ) )
+        .catch(next);
+    })
     .get('/getwork/:id', (req, res, next) => {
         const id = +req.params.id;
         if(!id) return next();
