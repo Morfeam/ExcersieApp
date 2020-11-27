@@ -20,10 +20,8 @@ async function getComment(id){
 }
 
 async function getCommentsonWorkoutId(Workout_id){
-    const sql = `SELECT *, (SELECT Value FROM ${PREFIX}Comments Where Workout_id = LIKE %${Workout_id}%`;
-    const rows = await mysql.query(sql, [Workout_id]);
-    if(!rows.length) throw { status: 404, message: "Sorry, there is no such Workout" };
-    return rows[0];
+    console.log("Get all Comments on workout ID:", Workout_id)
+    return await mysql.query(`SELECT * FROM ${PREFIX}Comments Where Workout_id = ?`,[Workout_id]);
 }
 
 async function getCommentsonOwnerId(Owner_id){

@@ -64,12 +64,29 @@
                             <p>{{ x.Other_Info}}</p>
                         <br>
                         <time datetime="YYYY-MM-DD">{{x.created_at}}</time>
+                         <hr>
+                        <div v-for=" (y, i) in comments" 
+                         :key="i"
+                         :i="i"
+                         :post="y">
+                         <p>
+                          {{y.Text}} - {{y.Owner_id}}
+                        </p>
+                        </div>
+                        <br>
+                            <form>
+                            <input class="input" type="" name="Comment" placeholder="Add a Comment" v-model="commentTxt">
+                                    <p class="control">
+                                        <button class="button is-Secondary is-pulled-right" name="submit" @click.prevent="addThecomment">
+                                        Comment
+                                        </button>
+                                    </p>
+                                    <br>
+                            </form>
+
                         </div>
                     </div>
-                    <footer class="card-footer">
-                        <a href="#" class="card-footer-item">Follow</a>
-                        <a href="#" class="card-footer-item">Comment</a>
-                    </footer>
+
                     </div>
                 </div> 
             
@@ -89,8 +106,11 @@
 import Sidebar from "@/components/SideBar";
 import Post from "@/components/Post";
 import { getPublicWorkouts } from "@/models/workouts";
+import { getCommentsList, addComment } from "@/models/comments";
 import {  getList, getUserID} from "@/models/users";
 import session from "@/models/session";
+var WorkoutID = 12;
+var user = 1;
 export default {
     data(){
         return {
@@ -98,11 +118,13 @@ export default {
             Thename: [],
             userList: [],
             userInfo: [],
+            comments: [],
         }
     },
     async created(){
         this.pubWorkouts = await getPublicWorkouts(3);
         this.userList = await getList();
+        this.comments = await getCommentsList(WorkoutID);
     },
     components: {
         Sidebar,Post
@@ -115,7 +137,11 @@ export default {
             this.posts.push({
                 URL: p.images[0].source
             })
-        }
+        },
+        async addThecomment(){
+        const data = await addComment(this.commentTxt,WorkoutID,user);
+        this.status.push('Add Comment Successful');
+      },
     }
 }
 </script>

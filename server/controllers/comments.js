@@ -18,9 +18,8 @@ router
         comments.getComment(id).then(x=> res.send( x ) )
         .catch(next);
     })
-    .get('/:Workout_id', (req, res, next) => {
+    .get('/workout/:Workout_id', (req, res, next) => {
         const Workout_id = +req.params.Workout_id;
-        if(!Workout_id) return next();
         comments.getCommentsonWorkoutId(Workout_id).then(x=> res.send( x.map(comment=> ({ ...comment}) ) ) )
         .catch(next);
     })
@@ -34,8 +33,8 @@ router
         comments.search(req.query.q).then(x=> res.send( x ) )
         .catch(next);
     })
-    .post('/', (req, res, next) => {
-        comments.add(
+    .post('/add', (req, res, next) => {
+        comments.addComment(
             req.body.Text,
             req.body.Workout_id,
             req.body.Owner_id 
