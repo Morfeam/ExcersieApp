@@ -12,7 +12,7 @@ router
         exercise.getAllExerciseTypes().then(x=> res.send( x.map(ex=> ({ ...ex}) ) ) )
         .catch(next);
     })
-    .post('/', (req, res, next) => {
+    .post('/add', (req, res, next) => {
         exercise.addExercise(
             req.body.Name,
             req.body.Type, 

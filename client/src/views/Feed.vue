@@ -1,11 +1,14 @@
 <template>
 <div id="grad1">
     <br>
-    <div class="container">
+    <div class="container  has-background-light">
+         <div class="columns">
+        <div class="column">
     <div class="notification is-primary">
       <h2 class="title is-4">Feed Page</h2>
       </div>
-    
+        </div>
+        </div>
 
     <br>
         <div class="columns">

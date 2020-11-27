@@ -16,9 +16,9 @@ async function getAllExerciseTypes(){
 }
 
 
-async function addExercise(Name,Type,Muscle_group,Relative_Difficulty){
-    const sql = `INSERT INTO ${PREFIX}Exercise_Types (created_at,Name,Type,Muscle_group,Relative_Difficulty ) VALUES ? ;`;
-    const params = [[new Date(), Name,Type,Muscle_group,Relative_Difficulty]];
+async function addExercise(Name,Type,Muscle_group,Relative_Dificulty){
+    const sql = `INSERT INTO ${PREFIX}Exercise_Types (created_at,Name,Type,Muscle_group,Relative_Dificulty ) VALUES ? ;`;
+    const params = [[new Date(), Name,Type,Muscle_group,Relative_Dificulty]];
     return await mysql.query(sql, [params]);
 }
 

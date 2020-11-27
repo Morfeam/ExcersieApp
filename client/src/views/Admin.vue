@@ -208,6 +208,50 @@
 </div>
      </div>
     </div>
+    
+    
+    <div class="columns has-background-light">
+      
+      <div class="column">
+         
+      <form>
+  <p class="title is-3">Add Exercise Type:</p>
+
+  <div class="columns">
+
+    <div class="column">
+
+      <div class="field">
+          <label class="label">Exercise Type Name</label>
+         <input class="input" type="" name="exerciseName" placeholder="Name of Exercise Type" v-model="exerciseName">
+      </div>
+      
+      </div>
+
+      <div class="column">
+
+      <div class="field">
+          <label class="label">Difficulty</label>
+         <input class="input" type="" name="diff" placeholder="Relative Difficulty" v-model="diff">
+      </div>
+      
+      </div>
+  </div>
+
+<div class="field">
+  <p class="control">
+    <button class="button is-success is-pulled-right" name="submit" @click.prevent="addExType">
+      Add Exercise Type
+    </button>
+  </p>
+   <br>
+   <br>
+</div>
+</form>
+
+      </div>
+      
+    </div>
 
 
     <hr>
@@ -361,7 +405,7 @@
 import { getWorkouts, addWorkout, deleteWorkout} from "@/models/workouts";
 import {  getList, getUserID, addUser, delUser} from "@/models/users";
 import { getAllFollows, delFollow} from "@/models/followers";
-import { getExerciseList, delExerciseType} from "@/models/exercise_types";
+import { getExerciseList, delExerciseType, addExerciseType} from "@/models/exercise_types";
 import session from "@/models/session";
 export default {
     data(){
@@ -405,6 +449,10 @@ export default {
       async deleteUser(uid){
         const data = await delUser(uid);
         this.status.push('Delete User Successful');
+      },
+      async addExType(){
+        const data = await addExerciseType(this.exerciseName,'User Types','User Types', Number(this.diff));
+        this.status.push('Exercise Types Successful');
       }
     }
     
