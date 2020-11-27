@@ -222,13 +222,12 @@
          <div class="column">
 
                <p class = "title is-4">Public Workouts</p>
-               <div v-for=" (x, i) in 5 " 
+               <div v-for=" (x, i) in publiclist " 
                                     :key="i"
                                     :i="i"
                                     :post="x">
 
                         <p class = "subtitle is-5">Id: {{x}}</p>
-                        <p class = "subtitle is-5">Comments: {{x}}</p>
                         <hr>
                         
                </div>
@@ -339,7 +338,7 @@
 </template>
 
 <script>
-import { getUserWorkouts, addWorkout, updateWorkout, deleteWorkout} from "@/models/workouts";
+import { getUserWorkouts, addWorkout, updateWorkout, deleteWorkout, getUserPublicWorkouts} from "@/models/workouts";
 import {  getList, getUserID} from "@/models/users";
 import { getFollowers, getFollowing, addFollowing, delFollow} from "@/models/followers";
 import { getExerciseList} from "@/models/exercise_types";
@@ -354,6 +353,7 @@ export default {
             Followerlist: [],
             userList: [],
             exercises: [],
+            publicWorkouts: [],
         }
     },
     props:{
@@ -366,6 +366,7 @@ export default {
         this.Followerlist = await getFollowers(user); 
         this.userList = await getList();
         this.exercises = await getExerciseList();
+        this.publiclist = await getUserPublicWorkouts(user); 
     },
     components: {
         

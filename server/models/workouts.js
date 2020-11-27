@@ -20,6 +20,11 @@ async function getUserWorkouts(Owner_id){
     return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where Owner_id = ?`,[Owner_id]);
 }
 
+async function getUserPublicWorkouts(Owner_id){
+    console.log("Get all Public workouts for:", Owner_id)
+    return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where Owner_id = ? AND Privacy_Setting = ?`,[Owner_id,3]);
+}
+
 async function getPublicWorkouts(Setting){
     console.log("Get all Public workouts:", Setting)
     return await mysql.query(`SELECT * FROM ${PREFIX}Workouts Where Privacy_Setting = ?`,[Setting]);
@@ -49,4 +54,4 @@ async function removeWorkout(id){
 
 const search = async q => await mysql.query(`SELECT id, Owner_id, Exercise_Type FROM ${PREFIX}Workouts WHERE Owner_id LIKE ? OR Exercise_Type LIKE ?; `, [`%${q}%`, `%${q}%`]);
 
-module.exports = { getAllWorkouts, getUserWorkouts, getPublicWorkouts, getWorkout, addWorkout, updateWorkout,removeWorkout, search, Privacy_Setting }
+module.exports = { getAllWorkouts, getUserWorkouts, getPublicWorkouts, getUserPublicWorkouts,getWorkout, addWorkout, updateWorkout,removeWorkout, search, Privacy_Setting }
