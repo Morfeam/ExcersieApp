@@ -26,22 +26,13 @@
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          Exercises
+          Example Pages
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-            Jogging / Walking
-          </a>
-          <a class="navbar-item">
-            Hiking
-          </a>
-          <a class="navbar-item">
-            Weight Lifting
-          </a>
-          <a class="navbar-item">
-            Other
-          </a>
+             <router-link to="/User" class="navbar-item">User</router-link>
+             <router-link to="/Admin" class="navbar-item">Admin</router-link>
+             <router-link to="/Feed" class="navbar-item">Feed</router-link>
         </div>
       </div>
     </div>
