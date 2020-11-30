@@ -108,6 +108,7 @@ import { getPublicWorkouts } from "@/models/workouts";
 import { getCommentsList, addComment } from "@/models/comments";
 import {  getList, getUserID} from "@/models/users";
 import session from "@/models/session";
+debugger; 
 var WorkoutID = 12;
 var user = 1;
 export default {

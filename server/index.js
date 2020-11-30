@@ -1,13 +1,19 @@
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
+console.log("Starting Server");
+
 
 const users = require('./controllers/users');
+console.log("Starting users");
 const workouts = require('./controllers/workouts');
+console.log("Starting workouts");
 const followers = require('./controllers/followers');
+console.log("Starting follow");
 const comments = require('./controllers/comments');
+console.log("Starting comments");
 const exercise_types = require('./controllers/exercise_types');
-
+console.log("Starting exercise types");
 const app = express()
 const port = process.env.PORT || 3000;
 
