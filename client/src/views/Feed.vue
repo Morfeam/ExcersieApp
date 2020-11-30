@@ -108,7 +108,7 @@ import { getPublicWorkouts } from "@/models/workouts";
 import { getCommentsList, addComment } from "@/models/comments";
 import {  getList, getUserID} from "@/models/users";
 import session from "@/models/session";
-debugger; 
+
 var WorkoutID = 12;
 var user = 1;
 export default {
@@ -122,9 +122,13 @@ export default {
         }
     },
     async created(){
+        console.log("After debugger");
         this.pubWorkouts = await getPublicWorkouts(3);
+        console.log("After getpublicwork");
         this.userList = await getList();
+        console.log("After getlist");
         this.comments = await getCommentsList(WorkoutID);
+        console.log("After getcommentslist");
     },
     components: {
         Sidebar
