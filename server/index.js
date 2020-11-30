@@ -1,7 +1,8 @@
+console.log("Starting Server");
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
-console.log("Starting Server");
+
 
 
 const users = require('./controllers/users');
@@ -15,7 +16,7 @@ console.log("Starting comments");
 const exercise_types = require('./controllers/exercise_types');
 console.log("Starting exercise types");
 const app = express()
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3007;
 
 console.log(process.env.BEST_CLASS);
 
