@@ -65,9 +65,9 @@ export default {
   methods: {
      login(){
             session.user = {
-                name: '',
-                handle: '',
-                profile: ''
+                name: ' ',
+                handle: ' ',
+                profile: ' '
             }
             session.addNotification('Yay! You logged in', 'success')
             this.$router.push('User')

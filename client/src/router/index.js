@@ -17,7 +17,7 @@ const routes = [
   { path: '/Admin', name: 'Admin', component: Admin },
   { path: '/User', name: 'User', component: User },
   {
-    path: '/feed',
+    path: '/Feed',
     name: 'Feed',
     component: () => import(/* webpackChunkName: "about" */ '../views/Feed.vue'),
     beforeEnter: checkSessionUser

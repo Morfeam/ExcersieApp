@@ -91,7 +91,7 @@
                 </div> 
             
             </div>
-            <div class="column is-one-quarter" @mouseenter="error">
+            <div class="column is-one-quarter">
                 <Sidebar />
             </div>
         </div>
@@ -126,12 +126,9 @@ export default {
         this.comments = await getCommentsList(WorkoutID);
     },
     components: {
-        Sidebar,
+        Sidebar
     },
     methods: {
-        error(){
-            //session.addNotification('Something went wrong.', 'danger')
-        },
         async addThecomment(){
         const data = await addComment(this.commentTxt,WorkoutID,user);
         this.status.push('Add Comment Successful');
