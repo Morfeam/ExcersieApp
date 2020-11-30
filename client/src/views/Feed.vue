@@ -104,7 +104,6 @@
 
 <script>
 import Sidebar from "@/components/SideBar";
-import Post from "@/components/Post";
 import { getPublicWorkouts } from "@/models/workouts";
 import { getCommentsList, addComment } from "@/models/comments";
 import {  getList, getUserID} from "@/models/users";
@@ -127,16 +126,11 @@ export default {
         this.comments = await getCommentsList(WorkoutID);
     },
     components: {
-        Sidebar,Post
+        Sidebar,
     },
     methods: {
         error(){
             //session.addNotification('Something went wrong.', 'danger')
-        },
-        add(p){
-            this.posts.push({
-                URL: p.images[0].source
-            })
         },
         async addThecomment(){
         const data = await addComment(this.commentTxt,WorkoutID,user);
