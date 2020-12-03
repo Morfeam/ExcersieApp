@@ -92,8 +92,13 @@
             
             </div>
             <div class="column is-one-quarter">
-                
-                <p class="content"><b>Selected:</b> {{ selected }}</p>
+                <p class="content">Search By:</p>
+                <button class="button is-primary" name="submit" @click.prevent="SearchByUser">
+                Users  </button>
+                <button class="button is-white" name="submit" @click.prevent="SearchByWorkout">
+                Workouts  </button>
+                <button class="button is-success" name="submit" @click.prevent="SearchByExerciseType">
+                Exercise Types  </button>
                 <b-field label="Find a JS framework">
                     <b-autocomplete
                         rounded
@@ -106,6 +111,7 @@
                         <template slot="empty">No results found</template>
                     </b-autocomplete>
                 </b-field>
+                <p class="content"><b>Selected:</b> {{ selected }}</p>
                 
                 
                 <Sidebar />
@@ -122,8 +128,9 @@
 import Sidebar from "@/components/SideBar";
 import { getPublicWorkouts } from "@/models/workouts";
 import { getCommentsList, addComment } from "@/models/comments";
-import {  getList, getUserID} from "@/models/users";
+import {  getList, getUserID, getListofNames} from "@/models/users";
 import session from "@/models/session";
+import { getExerciseList} from "@/models/exercise_types";
 
 var WorkoutID = 12;
 var user = 1;
@@ -135,20 +142,8 @@ export default {
             userList: [],
             userInfo: [],
             comments: [],
-             data: [
-                    'Angular',
-                    'Angular 2',
-                    'Aurelia',
-                    'Backbone',
-                    'Ember',
-                    'jQuery',
-                    'Meteor',
-                    'Node.js',
-                    'Polymer',
-                    'React',
-                    'RxJS',
-                    'Vue.js'
-                ],
+            theData: [],
+             exercises: [],
                 name: '',
                 selected: null
         }
@@ -161,6 +156,8 @@ export default {
         console.log("After getlist");
         this.comments = await getCommentsList(WorkoutID);
         console.log("After getcommentslist");
+         this.exercises = await getExerciseList();
+        this.data = exercises.name ;
     },
     components: {
         Sidebar
@@ -170,14 +167,22 @@ export default {
         const data = await addComment(this.commentTxt,WorkoutID,user);
         this.status.push('Add Comment Successful');
       },
+            async SearchByUser(){
+            this.theData = await getListofNames();
+            },
+            async SearchByWorkout(){
+            this.theData = await getPublicWorkouts(3);
+            },
+            async SearchByExerciseType(){
+            this.theData = await getExerciseList();
+            },
+      
     },
     computed: {
             filteredDataArray() {
-                return this.data.filter((option) => {
+                return this.theData.filter((option) => {
                     return option
-                        .toString()
-                        .toLowerCase()
-                        .indexOf(this.name.toLowerCase()) >= 0
+                        this.theData
                 })
             }
         }

@@ -12,6 +12,10 @@ router
         users.getAll().then(x=> res.send( x.map(user=> ({ ...user, Password: undefined}) ) ) )
         .catch(next);
     })
+    .get('/getNames/', (req, res, next) => {
+        users.getAllNames().then(x=> res.send( x.map(user=> ({ ...user, Password: undefined}) ) ) )
+        .catch(next);
+    })
     .get('/:id', (req, res, next) => {
         const id = +req.params.id;
         if(!id) return next();

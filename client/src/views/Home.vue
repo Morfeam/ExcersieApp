@@ -64,26 +64,36 @@
           <hr>
       </div>
     </div>
+    <br>
 
-    <br><br>
+        <p class="content subtitle is-5">Search By:</p>
+                <button class="button is-primary" name="submit" @click.prevent="SearchByUser">
+                Users  </button>
+                <button class="button is-white" name="submit" @click.prevent="SearchByWorkout">
+                Workouts  </button>
+                <button class="button is-success" name="submit" @click.prevent="SearchByExerciseType">
+                Exercise Types  </button>
 
-    <section>
-        <p class="content"><b>Selected:</b> {{ selected }}</p>
-        <b-field label="Find a JS framework">
-            <b-autocomplete
-                rounded
-                v-model="name"
-                :data="filteredDataArray"
-                placeholder="e.g. jQuery"
-                icon="magnify"
-                clearable
-                @select="option => selected = option">
-                <template slot="empty">No results found</template>
-            </b-autocomplete>
-        </b-field>
-    </section>
+    <b-field label="">
+                    <b-autocomplete
+                        rounded
+                        v-model="name"
+                        :data="filteredDataArray"
+                        placeholder="Search"
+                        icon="magnify"
+                        clearable
+                        @select="option => selected = option">
+                        <template slot="empty">No results found</template>
+                    </b-autocomplete>
+                </b-field>
+                <p class="content"><b>Selected:</b> {{ selected }}</p>
+                
 
-    <br><br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <p class="subtitle is-5">For more information regarding updates and implementations please go to: <a href="https://github.com/Morfeam1/ExerciseApp3">My Github Page</a></p>
       </center>
 
@@ -95,10 +105,16 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import { getExerciseList} from "@/models/exercise_types";
+import {  getList, getUserID, getListofNames} from "@/models/users";
+import { getPublicWorkouts } from "@/models/workouts";
 export default {
         data() {
             return {
+                exercises: [],
+                userNames: [],
+                pubWorkouts: [],
+                theData: [],
                 data: [
                     'Angular',
                     'Angular 2',
@@ -117,13 +133,28 @@ export default {
                 selected: null
             }
         },
+        async created(){
+         this.exercises = await getExerciseList();
+         this.users = await getList();
+         this.pubWorkouts = await getList();
+         this.userNames = await getListofNames();
+        },
+        methods: {
+            async SearchByUser(){
+            this.theData = await getListofNames();
+            },
+            async SearchByWorkout(){
+            this.theData = await getPublicWorkouts(3);
+            },
+            async SearchByExerciseType(){
+            this.theData = await getExerciseList();
+            },
+        },
         computed: {
             filteredDataArray() {
-                return this.data.filter((option) => {
+                return this.theData.filter((option) => {
                     return option
-                        .toString()
-                        .toLowerCase()
-                        .indexOf(this.name.toLowerCase()) >= 0
+                        this.theData
                 })
             }
         }

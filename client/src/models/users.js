@@ -8,6 +8,10 @@ export function getList() {
     return myFetch('users');
 }
 
+export function getListofNames() {
+    return myFetch('users/getNames/');
+}
+
 export function getUserID(id) {
     return myFetch('users/' + id);
 }

@@ -15,6 +15,13 @@ async function getAll(){
     return await mysql.query(`SELECT * FROM ${PREFIX}Users`);
 }
 
+async function getAllNames(){
+    //throw { status: 501, message: "This is a fake error" }
+    //await Promise.resolve()
+    console.log("Called GetAllNames")
+    return await mysql.query(`SELECT FirstName FROM ${PREFIX}Users`);
+}
+
 async function get(id){
     return await mysql.query(`SELECT * FROM ${PREFIX}Users Where id = ?`,[id]);
 }
@@ -67,4 +74,4 @@ async function register(FirstName, LastName, DOB, Password, User_Type, Email) {
 
 const search = async q => await mysql.query(`SELECT id, FirstName, LastName FROM ${PREFIX}Users WHERE LastName LIKE ? OR FirstName LIKE ?; `, [`%${q}%`, `%${q}%`]);
 
-module.exports = { getAll, get, add, update, remove, getTypes, register, login, search, Types }
+module.exports = { getAll,getAllNames,get, add, update, remove, getTypes, register, login, search, Types }
