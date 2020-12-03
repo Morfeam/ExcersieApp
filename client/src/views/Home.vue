@@ -65,6 +65,25 @@
       </div>
     </div>
 
+    <br><br>
+
+    <section>
+        <p class="content"><b>Selected:</b> {{ selected }}</p>
+        <b-field label="Find a JS framework">
+            <b-autocomplete
+                rounded
+                v-model="name"
+                :data="filteredDataArray"
+                placeholder="e.g. jQuery"
+                icon="magnify"
+                clearable
+                @select="option => selected = option">
+                <template slot="empty">No results found</template>
+            </b-autocomplete>
+        </b-field>
+    </section>
+
+    <br><br>
     <p class="subtitle is-5">For more information regarding updates and implementations please go to: <a href="https://github.com/Morfeam1/ExerciseApp3">My Github Page</a></p>
       </center>
 
@@ -78,11 +97,37 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
-  components: {
-   
-  }
-}
+        data() {
+            return {
+                data: [
+                    'Angular',
+                    'Angular 2',
+                    'Aurelia',
+                    'Backbone',
+                    'Ember',
+                    'jQuery',
+                    'Meteor',
+                    'Node.js',
+                    'Polymer',
+                    'React',
+                    'RxJS',
+                    'Vue.js'
+                ],
+                name: '',
+                selected: null
+            }
+        },
+        computed: {
+            filteredDataArray() {
+                return this.data.filter((option) => {
+                    return option
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(this.name.toLowerCase()) >= 0
+                })
+            }
+        }
+    }
 </script>
 
 <style>
